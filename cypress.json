@@ -1,3 +1,6 @@
 {
-  "baseUrl": "http://lojaebac.ebaconline.art.br/"
+  "baseUrl": "http://lojaebac.ebaconline.art.br/",
+  "viewportWidth": 1440,
+  "viewportHeight": 900
 }
+
