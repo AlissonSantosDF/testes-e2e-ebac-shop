@@ -2,6 +2,7 @@
 const perfil = require('../fixtures/perfil.json')
 import SubmitPage from '../support/page_objects/submit.page'
 import CompraPage from '../support/page_objects/compra.page'
+const dadosCompra = require('../fixtures/compra.json')
 
 
 context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
@@ -27,42 +28,38 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
 
 
 
-        //--------------choose-------------------------
-        /*var quantidade = 1
-        cy.get('#primary-menu > .menu-item-629 > a').click()
-        cy.get('[class="product-block grid"]')
-            .eq(7)
-            .click()
-        cy.get('.button-variable-item-XS').click()
-        cy.get('.button-variable-item-Green').click()
-        cy.get('.input-text').clear().type(quantidade)
-        cy.get('.single_add_to_cart_button').click()*/
-        //compra de 2 de produtos diferents por comandos customizados
-        //cy.addProdutos(7,'L', 'Green', 2)
-       // cy.addProdutos(7,'L', 'Green', 2)
+        //compra de 2 produtos diferentes por Custom Commands
+        cy.addProdutos(
+            dadosCompra[0].produto,
+            dadosCompra[0].tamanho,
+            dadosCompra[0].cor,
+            dadosCompra[0].quantidade)
+        cy.addProdutos(
+            dadosCompra[1].produto,
+            dadosCompra[1].tamanho,
+            dadosCompra[1].cor,
+            dadosCompra[1].quantidade)
+
         //compra de 2 produtos diferentes por page-objects
-        CompraPage.comprarProduto(7,'L', 'Green', 2)
+        CompraPage.comprarProduto(
+            dadosCompra[2].produto,
+            dadosCompra[2].tamanho,
+            dadosCompra[2].cor,
+            dadosCompra[2].quantidade)
+
+        CompraPage.comprarProduto(
+            dadosCompra[3].produto,
+            dadosCompra[3].tamanho,
+            dadosCompra[3].cor,
+            dadosCompra[3].quantidade)
 
         //----------second check point----------
-        
+
         cy.get('.woocommerce-message').should('contain', 'no seu carrinho')
-
-
-        //-----------Submit------------------------
-       /* cy.get('.woocommerce-message > .button').click()
-        cy.get('.checkout-button').click()
-        cy.get('input[id="payment_method_bacs"][type="radio"]').check()
-        cy.get('#terms').check()
-        //cy.get('#place_order').click({force:true})*/
 
         SubmitPage.finalizarCompra()
         //---------------------Validate ----------------
-
-        //cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido' )
-
-
-
-
+        cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido')
 
 
     });

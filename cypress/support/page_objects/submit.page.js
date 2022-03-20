@@ -4,7 +4,7 @@ class SubmitPage {
         cy.get('.checkout-button').click()
         cy.get('input[id="payment_method_bacs"][type="radio"]').check()
         cy.get('#terms').check()
-        //cy.get('#place_order').click({force:true})
+        cy.get('#place_order').click({force:true})
     }
 
 }
